@@ -60,5 +60,3 @@ To run To-Do-List locally, follow these steps:
 - [MongoDB](https://www.mongodb.com/) - NoSQL database for data storage.
 - [Mustache](https://mustache.github.io/) - Logic-less template syntax for rendering HTML templates.
 - [Mongoose](https://mongoosejs.com/) - MongoDB object modeling for Node.js.
-- [Moment.js](https://momentjs.com/) - JavaScript date library for parsing and formatting dates.
-- [Shortid](https://github.com/dylang/shortid) - Generate short, non-sequential, URL-friendly unique IDs.
