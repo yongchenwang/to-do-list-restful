@@ -1,0 +1,89 @@
+/* Reset some default styles */
+body, h1, h3, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a base font size and line height */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center; /* Center align the text in the body */
+}
+
+/* Style the header */
+h1 {
+    color: black;
+    padding: 20px;
+}
+
+/* Style the form for adding tasks */
+form {
+    padding: 0;
+    margin: 0 30rem;
+}
+
+/* Style the input field and button */
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block; /* Center align the input and button */
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block; /* Center align the input and button */
+}
+
+/* Style the task lists */
+h3 {
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 10px;
+    margin: 0 35rem;
+}
+
+li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style the buttons in the task list */
+button[id="patchBtn"], button[id="delBtn"] {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+    input[type="text"] {
+        width: 100%;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        margin-left: 0; /* Remove the left margin to center the button */
+    }
+}
+
+/* Add more media queries and styles for larger screens if needed */

@@ -1,7 +1,6 @@
 let router = require('express').Router();
 let TaskModel = require('../models/TaskModel');
 
-// GET /
 router.get('/', function (req, res) {
     TaskModel.find({}).then(function (tasks) {
         let openTasks = tasks.filter(function (task) {
@@ -14,39 +13,99 @@ router.get('/', function (req, res) {
     });
 });
 
-router.post('/', function (req, res) {
-    let newTask = new TaskModel({description: req.body.description});
-
-    newTask.save().then(function (result) {
-        console.log(result);
-        res.redirect('/');
+router.get('/task', function (req, res) {
+    TaskModel.find({}).then(function (tasks) {
+        res.json({
+            code: '0000',
+            message: 'Tasks retrieved successfully',
+            data: tasks
+        });
     }).catch(function (err) {
-        console.log(err);
-        res.redirect('/');
+        res.json({
+            code: '0001',
+            message: 'Tasks could not be retrieved',
+            data: null
+        });
     });
 });
 
-router.patch('/task/:id', function (req, res) {
+router.get('/task/:id', function (req, res) {
     let taskID = req.params.id;
-    console.log(taskID);
-    console.log(req.body);
+    TaskModel.findById(taskID).then(function (task) {
+        res.json({
+            code: '0000',
+            message: 'Task retrieved successfully',
+            data: task
+        });
+    }).catch(function (err) {
+        res.json({
+            code: '0002',
+            message: 'Task could not be found',
+            data: null
+        });
+    });
+});
+
+router.post('/task', function (req, res) {
+    TaskModel.create(req.body).then(function (task) {
+        res.json({
+            code: '0000',
+            message: 'Task created successfully',
+            data: task
+        });
+    }).catch(function (err) {
+        res.json({
+            code: '0003',
+            message: 'Task could not be created',
+            data: null
+        });
+    });
+});
+
+router.put('/task/:id', function (req, res) {
+    let taskID = req.params.id;
     TaskModel.updateOne({_id: taskID}, req.body).then(function (result) {
-        TaskModel.findById(taskID).then(function (result) {
+        TaskModel.findById(taskID).then(function (task) {
             res.json({
                 code: '0000',
                 message: 'Task updated successfully',
-                data: result
+                data: task
             });
         }).catch(function (err) {
             res.json({
-                code: '0003',
+                code: '0002',
                 message: 'Task could not be found',
                 data: null
             });
         });
     }).catch(function (err) {
         res.json({
-            code: '0002',
+            code: '0004',
+            message: 'Task could not be updated',
+            data: null
+        });
+    });
+});
+
+router.patch('/task/:id', function (req, res) {
+    let taskID = req.params.id;
+    TaskModel.updateOne({_id: taskID}, req.body).then(function (result) {
+        TaskModel.findById(taskID).then(function (task) {
+            res.json({
+                code: '0000',
+                message: 'Task updated successfully',
+                data: task
+            });
+        }).catch(function (err) {
+            res.json({
+                code: '0002',
+                message: 'Task could not be found',
+                data: null
+            });
+        });
+    }).catch(function (err) {
+        res.json({
+            code: '0004',
             message: 'Task could not be updated',
             data: null
         });
@@ -56,7 +115,7 @@ router.patch('/task/:id', function (req, res) {
 router.delete('/task/:id', function (req, res) {
     let taskID = req.params.id;
 
-    TaskModel.deleteOne({_id: taskID}).then(function (result) {
+    TaskModel.deleteOne({_id: taskID}).then(function (task) {
         res.json({
             code: '0000',
             message: 'Task deleted successfully',

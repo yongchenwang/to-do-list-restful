@@ -3,6 +3,7 @@ let mustacheExpress = require('mustache-express');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let routes = require('./routes/routes');
+let path = require('path');
 
 // to avoid deprecation warnings
 mongoose.Promise = global.Promise;
@@ -28,6 +29,7 @@ app.set('view engine', 'mustache');
 app.set('views', __dirname + '/views');
 
 app.use('/', routes);
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(8000, function () {
     console.log('Listening on port 8000');
