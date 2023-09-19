@@ -17,6 +17,7 @@ This is a simple web application for managing your to-do list. You can add tasks
 - **To Do List Tracking** Easily add and remove tasks, mark as completed, or reopen tasks.
 - **RESTful APIs** Implemented RESTful APIs.
 - **Responsive Design** Access from various devices.
+- **MVC Design Pattern**
 
 ## Express Server
 The Express server handles the backend functionality of the web application. It provides API endpoints for creating, reading, updating, and deleting tasks. The server is defined in the following file:
