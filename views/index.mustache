@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta htt-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>To Do List</h1>
+    <form action="/" method="POST">
+        <input type="text" name="description" placeholder="Add task"/>
+        <button type="submit">Add</button>
+    </form>
+    <h3>Open Items</h3>
+    <ul>
+        {{# openTasks }}
+        <li>
+            {{description}}
+            <button id="patchBtn" task-id="{{_id}}" completed-status="{{completed}}">Mark as completed</button>
+            <button id="delBtn" task-id="{{_id}}">Delete</button>
+        </li>
+        {{/ openTasks }}
+    </ul>
+    <h3>Completed</h3>
+    <ul>
+        {{# completedTasks }}
+        <li>
+            {{description}}
+            <button id="patchBtn" task-id="{{_id}}" completed-status="{{completed}}">Undone</button>
+            <button id="delBtn" task-id="{{_id}}">Delete</button>
+        </li>
+        {{/ completedTasks }}
+    </ul>
+</body>
+<script>
+    let delBtn = document.getElementById('delBtn');
+    delBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        let id = this.getAttribute('task-id');
+        fetch(`/task/${id}`, {
+            method: 'DELETE'
+        })
+        window.location.reload();
+    })
+
+    let patchBtn = document.getElementById('patchBtn');
+    patchBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        let id = this.getAttribute('task-id');
+        let completed = this.getAttribute('completed-status') === 'true' ? true : false;
+        console.log(!completed);
+        fetch(`/task/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({completed: !completed}),
+        })
+        window.location.reload();
+    })
+</script>
+</html>
